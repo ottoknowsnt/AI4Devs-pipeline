@@ -41,6 +41,7 @@ jobs:
       - name: Run frontend tests (Cypress)
         uses: cypress-io/github-action@v6
         with:
+          working-directory: frontend  # Tell Cypress to use the frontend directory
           start: npm start
           wait-on: http://localhost:3000
           browser: chrome # or firefox
