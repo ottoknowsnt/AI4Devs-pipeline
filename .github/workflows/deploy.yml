@@ -58,7 +58,13 @@ jobs:
 
             echo "Restarting backend only if necessary..."
             cd backend
-            pm2 restart backend || pm2 start npm --name "backend" -- run start
+            if pm2 list | grep -q backend; then
+              echo "Restarting backend..."
+              pm2 restart backend
+            else
+              echo "Starting backend..."
+              pm2 start npm --name "backend" -- run start
+            fi
             cd ..
 
             echo "Deployment successful!"
