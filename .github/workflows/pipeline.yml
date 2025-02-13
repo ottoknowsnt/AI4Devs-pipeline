@@ -85,4 +85,5 @@ jobs:
           chmod 600 private_key.pem
           ssh -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }} "mkdir -p ${{ secrets.DEPLOYMENT_DIRECTORY }}"
           scp -i private_key.pem -r dist/* ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }}:${{ secrets.DEPLOYMENT_DIRECTORY }}
-          ssh -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }} 'pm2 restart all' 
+          ssh -i private_key.pem ${{ secrets.EC2_USER }}@${{ secrets.EC2_INSTANCE_IP }} 'pm2 restart all'
+          rm private_key.pem 

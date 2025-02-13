@@ -151,3 +151,49 @@ Para conectarte a tu instancia EC2 a través de SSH:
 1. **Archivo de Clave Privada (.pem)**: Asegúrate de tenerlo y que tenga permisos correctos (`chmod 400 your-key.pem`).
 2. **Obtener la Dirección IP**: Desde la consola de AWS.
 3. **Conectarse**: Usa `ssh -i your-key.pem ec2-user@your-ec2-public-ip`.
+
+## Usuario
+
+puedes separarme el @pipeline.yml en diferentes jobs? quiero uno por:
+
+-build (este primero puedes cachearlo para asi evitar operaciones redudantes en cada intento)
+-test
+-deploy
+
+te parece correcto?
+
+## GPT-4o
+
+Separar el pipeline en diferentes jobs es una buena práctica. He actualizado el archivo `pipeline.yml` para incluir jobs separados para build, test y deploy, utilizando caché para mejorar la eficiencia.
+
+## Usuario
+
+usa la version mas reciente y estable de Node en @pipeline.yml , tiene que ser compatible para poder desplegarse en la instancia EC2
+
+## GPT-4o
+
+He configurado el archivo `pipeline.yml` para usar la última versión LTS de Node.js, asegurando compatibilidad y estabilidad.
+
+## Usuario
+
+haz npm install en vez de npm ci
+
+## GPT-4o
+
+He cambiado `npm ci` a `npm install` en el archivo `pipeline.yml` para instalar las dependencias según el archivo `package.json`.
+
+## Usuario
+
+chequea que el directorio donde quiero que se copie el codigo en la instancia EC2, este previamente creado, sino crealo en @pipeline.yml
+
+## GPT-4o
+
+He añadido un comando en el script de despliegue para verificar y crear el directorio de despliegue en la instancia EC2 si no existe.
+
+## Usuario
+
+sigue buenas practicas en @pipeline.yml , elimina datos sensibles como la clave final una vez se utilice
+
+## GPT-4o
+
+He asegurado que la clave privada SSH se elimine después de su uso en el script de despliegue para seguir buenas prácticas de seguridad.
