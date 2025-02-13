@@ -179,7 +179,7 @@ He configurado el archivo `pipeline.yml` para usar la última versión LTS de No
 haz npm install en vez de npm ci
 
 ## GPT-4o
-
+_
 He cambiado `npm ci` a `npm install` en el archivo `pipeline.yml` para instalar las dependencias según el archivo `package.json`.
 
 ## Usuario
