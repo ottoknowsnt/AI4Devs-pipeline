@@ -18,4 +18,50 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4 
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+          
+      - name: Install Backend Dependencies
+        run: |
+          cd backend
+          npm install
+          
+      - name: Run Backend Tests
+        run: |
+          cd backend
+          npm run test
+          
+      - name: Build Backend
+        run: |
+          cd backend
+          npm run build
+          
+      - name: Prepare Deployment Package
+        if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+        run: |
+          # Crear directorio para el paquete de despliegue
+          mkdir -p deploy_package
+          
+          # Preparar archivos para despliegue
+          cp -r backend/dist deploy_package/
+          cp backend/package.json deploy_package/
+          
+      - name: Deploy to EC2
+        if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_INSTANCE }}
+          REMOTE_USER: ${{ secrets.AWS_ACCESS_ID }}
+          SOURCE: "deploy_package/"
+          TARGET: "/home/ec2-user/app"
+          ARGS: "-rltgoDzvO --delete"
+          SCRIPT_AFTER: |
+            cd ~/app
+            npm install --production
+            pm2 stop backend || echo "No hay una aplicación anterior en ejecución"
+            pm2 start ~/app/dist/index.js --name backend 
