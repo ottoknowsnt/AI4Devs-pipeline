@@ -28,3 +28,17 @@ Para empezar, se requiere el siguiente pipeline:
 - Añadir un paso que despliegue el backend en un EC2.
 - En el archivo `README.md` se detalla la configuración necesaria para poder desplegar el backend a un EC2, comprueba así que nuestro proyecto esté configurado correctamente, y realiza las configuraciones necesarias si no es así.
 - La instancia EC2 ya está creada y configurada, y las variables necesarias ya están configuradas como secretos del repositorio.
+
+---
+
+Un par de mejoras:
+
+1. Puedes usar la acción `easingthemes/ssh-deploy`para simplificar el deploy.
+2. Los únicos secretos disponibles son los definidos en el `README.md`. Estos son: `AWS_ACCESS_ID`, `AWS_ACCESS_KEY` y `EC2_INSTANCE`.
+
+---
+
+Te comento las últimas mejoras:
+
+1. El secreto `AWS_ACCESS_ID` contiene el nombre de usuario remoto.
+2. La acción `easingthemes/ssh-deploy` permite ejecutar comandos después de la sincronización con la variable `SCRIPT_AFTER`, no es necesaria la acción `appleboy/ssh-action`.
