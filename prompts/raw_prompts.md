@@ -1,0 +1,30 @@
+El proyecto ya está listo para pasar a producción, por lo que ahora necesitamos los pipelines adecuados de CI/CD que nos permitan hacerlo en condiciones.
+
+Para empezar, se requiere el siguiente pipeline:
+
+- Workflow de Github Actions, implementado en el archivo `github/workflows/deploy.yml`.
+- Ejecutado cuando se realiza un push a una rama con un Pull Request abierto.
+- De momento solo contendrá la configuración necesaria para hacer checkout del repositorio.
+
+---
+
+¡Perfecto! Continuemos añadiendo más pasos a nuestro workflow:
+
+- Añadir un paso adicional para ejecutar los tests de backend.
+- En el archivo `README.md` se detalla como configurar correctamente el backend.
+- En el archivo `backend/package.json` se incluye un script para correr todos los tests de backend.
+
+---
+
+¡Genial! Ahora necesitaremos añadir otro paso adicional al workflow:
+
+- Añadir un paso más para generar una build del backend.
+- En el archivo `README.md` se detalla como realizarlo.
+
+---
+
+¡Increíble! Ya solo necesitamos el paso final de nuestro workflow:
+
+- Añadir un paso que despliegue el backend en un EC2.
+- En el archivo `README.md` se detalla la configuración necesaria para poder desplegar el backend a un EC2, comprueba así que nuestro proyecto esté configurado correctamente, y realiza las configuraciones necesarias si no es así.
+- La instancia EC2 ya está creada y configurada, y las variables necesarias ya están configuradas como secretos del repositorio.
